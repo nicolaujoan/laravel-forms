@@ -21,9 +21,10 @@ class PostController extends Controller
     {
 
         $validate = Validator::make($request->all(), [
-            "title" => "required|min:4|max:20"
+            "title" => "required|min:4|max:20",
+            "content" => "required"
         ], [
-                "name.required" => "Name is needed"
+                
             ])->validate();
 
     }   
