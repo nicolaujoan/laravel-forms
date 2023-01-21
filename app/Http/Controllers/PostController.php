@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,34 +29,20 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return
-     */
-    public function validate_post(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            "title" => "required|min:4|max:20",
-            "content" => "required"
-        ], [
-                
-            ])->validate();
-
-        return;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
     //  * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    */
+    public function store(StorePostRequest $request)
     {
-        $this->validate_post($request);
-
-        return;
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        $form_data = $request->all();
+        echo '<h3>form data</h3>';
+        print_r($form_data);
+        echo '<h3>validated data</h3>';
+        print_r($validated);
     }
 
     /**
