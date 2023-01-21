@@ -47,25 +47,24 @@
         <!-- CHECKS -->
         <fieldset>
             <label for="expirable">{{ __('expirable') }}</label>
-            <input type="checkbox" id="expirable" name="expirable" value="{{ old('expirable') }}">
+            <input type="checkbox" id="expirable" name="expirable" @checked(old('expirable'))>
             <label for="comentable">{{ __('comentable') }}</label>
-            <input type="checkbox" id="comentable" name="comentable" value="{{ old('comentable') }}"><br>
+            <input type="checkbox" id="comentable" name="comentable" @checked(old('comentable'))><br>
         </fieldset>
 
         <!-- RADIOS -->
         <fieldset>
             <label for="private_access">{{ __('messages.private_access') }}</label>
-            <input type="radio" id="private_access" name="private_access" value="{{ old('private_access') }}">
+            <input type="radio" id="private_access" name="private_access" @checked(old('private_access'))>
             <label for="public_access">{{ __('messages.public_access') }}</label>
-            <input type="radio" id="public_access" name="public_access" value="{{ old('public_access') }}">
+            <input type="radio" id="public_access" name="public_access" @checked(old('public_access'))>
         </fieldset>
         <br>
 
         <!-- CONTENT -->
         <label>{{ __('messages.post_content') }}</label><br>
         <textarea cols="50" rows="5" class="@error('content') is-invalid @enderror regular-input" id="content"
-            name="content" form="postform"
-            placeholder='{{ __('messages.post_content_placeholder') }}'>{{old('content')}}</textarea>
+            name="content" form="postform" placeholder='{{ __('messages.post_content_placeholder') }}'>{{ old('content') }}</textarea>
         @error('content')
             <div class="alert">{{ $message }}</div>
         @enderror
