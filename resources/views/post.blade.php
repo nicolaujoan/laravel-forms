@@ -26,7 +26,7 @@
 
 <body>
     <h1>{{ __('posts') }}</h1>
-    <form id="postform" method="post" action="submit-data">
+    <form id="postform" method="post" action="./">
         @csrf
 
         <!-- TITLE -->

@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", [PostController::class, "addPost"]);
-Route::post("submit-data", [PostController::class, "submitData"]);
+Route::resource("/posts", PostController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
