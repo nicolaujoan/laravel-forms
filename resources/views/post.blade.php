@@ -21,33 +21,33 @@
 </head>
 
 <body>
-    <h1>POSTS</h1>
+    <h1>{{__('posts')}}</h1>
     <form id="postform" method="post" action="submit-data">
         @csrf
-        <label>Título de la publicación</label><br>
+        <label>{{__('messages.post_title')}}</label><br>
         <input id="title" type="text" name="title" value="{{ old('title') }}" class="regular-input"
-            placeholder="Ingresa aquí el título de la publicación"><br><br>
-        <label>Extracto publicación</label><br>
+            placeholder='{{__('messages.post_title_placeholder')}}'><br><br>
+        <label>{{__('messages.post_extract')}}</label><br>
         <input id="extract" type="text" name="extract" class="regular-input"
-            placeholder="Ingresa un extracto de la publicación"><br><br>
+            placeholder='{{__('messages.post_extract_placeholder')}}'><br><br>
         <fieldset>
-            <label for="caducable">expirable</label>
+            <label for="caducable">{{__('expirable')}}</label>
             <input type="checkbox" id="expirable" name="expirable">
-            <label for="comentable">comentable</label>
+            <label for="comentable">{{__('comentable')}}</label>
             <input type="checkbox" id="comentable" name="comentable"><br><br>
         </fieldset>
         <fieldset>
-            <label for="private_access">private</label>
+            <label for="private_access">{{__('messages.private_access')}}</label>
             <input type="radio" id="private_access" name="name">
-            <label for="public_access">public</label>
+            <label for="public_access">{{__('messages.public_access')}}</label>
             <input type="radio" id="public_access" name="name">
         </fieldset>
         <br><br>
-        <label>Contenido publicación</label><br><br>
+        <label>{{__('messages.post_content')}}</label><br><br>
         <textarea cols="50" rows="5" style="border: 1px solid black" name="content" form="postform"
-            placeholder="Ingresa el contenido completo de la publicación"></textarea>
+            placeholder='{{__('messages.post_content_placeholder')}}'></textarea>
         <br><br>
-        <button type="submit">Submit</button>
+        <button type="submit">{{__('messages.submit')}}</button>
     </form>
 
 </body>
