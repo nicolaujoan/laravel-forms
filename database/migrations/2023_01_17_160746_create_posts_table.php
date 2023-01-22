@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('title')->nullable(false);
+            $table->string('title');
             $table->string('extract');
-            $table->string('content')->nullable(false);
+            $table->string('content');
             $table->boolean('expirable');
             $table->boolean('comentable');
             $table->boolean('is_private');

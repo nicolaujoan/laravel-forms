@@ -55,9 +55,9 @@
         <!-- RADIOS -->
         <fieldset>
             <label for="private_access">{{ __('messages.private_access') }}</label>
-            <input type="radio" id="private_access" name="private_access" @checked(old('private_access'))>
+            <input type="radio" id="private_access" name="access" value="private" @checked(old('private_access'))>
             <label for="public_access">{{ __('messages.public_access') }}</label>
-            <input type="radio" id="public_access" name="public_access" @checked(old('public_access'))>
+            <input type="radio" id="public_access" name="access" value="public" @checked(old('public_access'))>
         </fieldset>
         <br>
 

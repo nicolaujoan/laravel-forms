@@ -9,7 +9,11 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function user() {
+    // mass assignable attributes
+    protected $fillable = ['title', 'content', 'extract', 'user_id', 'expirable', 'comentable', 'is_private'];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
