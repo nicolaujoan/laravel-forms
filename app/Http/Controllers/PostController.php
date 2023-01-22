@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -59,14 +60,14 @@ class PostController extends Controller
         // 2) need fillable properties for mass assignment
         
         try {
-            $post = Post::create([
+            Post::create([
                 'title' => $form_data['title'],
                 'content' => $form_data['content'],
                 'extract' => $form_data['extract'],
                 'user_id' => Auth::id(),
-                'expirable' => $form_data['expirable'] === 'on' ? true : false,
-                'comentable' => $form_data['comentable'] === 'on' ? true : false,
-                'is_private' => $form_data['access'] === 'private' ? true : false,
+                'expirable' => isset($form_data['expirable']) && $form_data['expirable'] === 'on' ? true : false,
+                'comentable' => isset($form_data['comentable']) && $form_data['comentable'] === 'on' ? true : false,
+                'is_private' => isset($form_data['access']) && $form_data['access'] === 'private' ? true : false,
             ]);
             echo '<h3>Post saved successfully!</h3>';
         } catch (Exception $e) {
@@ -74,9 +75,24 @@ class PostController extends Controller
         }
  
         // 3) QueryBuilder
+        // $created_post = DB::table('posts')->insert([
+        //     'title' => $form_data['title'],
+        //     'content' => $form_data['content'],
+        //     'extract' => $form_data['extract'],
+        //     'user_id' => Auth::id(),
+        //     'expirable' => $form_data['expirable'] === 'on' ? true : false,
+        //     'comentable' => $form_data['comentable'] === 'on' ? true : false,
+        //     'is_private' => $form_data['access'] === 'private' ? true : false,
+        // ]);
 
-        // 4) Sentencia raw
+        // if ($created_post) {
+        //     echo '<h3>Post saved successfully!</h3>';
+        // } else {
+        //     echo '<h3>Cannot save post</h3>';
+        // }
 
+        // 4) Sentencia raw (Queda pendiente)
+        
         return view('welcome');
     }
 
