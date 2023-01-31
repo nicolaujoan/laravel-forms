@@ -21,10 +21,16 @@
         .alert {
             color: red;
         }
+
+        .regular-fieldset {
+            border: 0;
+            padding: 0;
+        }
     </style>
 </head>
 
 <body>
+    @include('components.navbar')
     <h1>{{ __('posts') }}</h1>
     <form id="postform" method="post" action="./">
         @csrf
@@ -45,15 +51,17 @@
             placeholder='{{ __('messages.post_extract_placeholder') }}'><br><br>
 
         <!-- CHECKS -->
-        <fieldset>
+        <fieldset class="regular-fieldset">
             <label for="expirable">{{ __('expirable') }}</label>
             <input type="checkbox" id="expirable" name="expirable" @checked(old('expirable'))>
             <label for="comentable">{{ __('comentable') }}</label>
             <input type="checkbox" id="comentable" name="comentable" @checked(old('comentable'))><br>
         </fieldset>
 
+        <br>
+
         <!-- RADIOS -->
-        <fieldset>
+        <fieldset class="regular-fieldset">
             <label for="private_access">{{ __('messages.private_access') }}</label>
             <input type="radio" id="private_access" name="access" value="private" @checked(old('private_access'))>
             <label for="public_access">{{ __('messages.public_access') }}</label>

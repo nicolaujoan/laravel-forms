@@ -13,11 +13,12 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return string
+     * @return
      */
     public function index()
     {
-        return 'posts list: 0';
+        $posts = Post::all();
+        return view('list-posts', ["posts" => $posts]);
     }
 
     /**
