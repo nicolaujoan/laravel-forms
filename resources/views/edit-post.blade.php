@@ -32,12 +32,12 @@
 <body>
     @include('components.navbar')
     <h1>{{ __('posts') }}</h1>
-    <form id="postform" method="post" action="{{ route('posts.create') }}">
+    <form id="postform" method="POST" action="{{ route('posts.update', $post->id) }}">
         @csrf
 
         <!-- TITLE -->
         <label>{{ __('messages.post_title') }}</label><br>
-        <input id="title" type="text" name="title" value="{{ old('title') }}"
+        <input id="title" type="text" name="title" value="{{ $post->title }}"
             class="@error('title') is-invalid @enderror regular-input"
             placeholder='{{ __('messages.post_title_placeholder') }}'>
         @error('title')
@@ -47,7 +47,7 @@
 
         <!-- EXTRACT -->
         <label>{{ __('messages.post_extract') }}</label><br>
-        <input id="extract" type="text" name="extract" value="{{ old('extract') }}" class="regular-input"
+        <input id="extract" type="text" name="extract" value="{{ $post->extract }}" class="regular-input"
             placeholder='{{ __('messages.post_extract_placeholder') }}'><br><br>
 
         <!-- CHECKS -->
@@ -72,15 +72,16 @@
         <!-- CONTENT -->
         <label>{{ __('messages.post_content') }}</label><br>
         <textarea cols="50" rows="5" class="@error('content') is-invalid @enderror regular-input" id="content"
-            name="content" form="postform" placeholder='{{ __('messages.post_content_placeholder') }}'>{{ old('content') }}</textarea>
+            name="content" form="postform" placeholder='{{ __('messages.post_content_placeholder') }}'>{{ $post->content }}</textarea>
         @error('content')
             <div class="alert">{{ $message }}</div>
         @enderror
         <br><br>
 
         <button type="submit">{{ __('messages.submit') }}</button>
+        @csrf @method('PUT')
     </form>
-
+    
 </body>
 
 </html>

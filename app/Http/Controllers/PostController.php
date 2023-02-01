@@ -112,11 +112,12 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        // find object by id
+        $post = DB::table('posts')->where('id', $id)->first();
+        return view('edit-post', ["post" => $post]);
     }
 
     /**
@@ -124,21 +125,38 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $form_data = $request->all();
+
+        $post = Post::where('id', $id)
+            ->update([
+                'title' => $form_data['title'],
+                'content' => $form_data['content'],
+                'extract' => $form_data['extract'],
+                'user_id' => Auth::id(),
+                'expirable' => isset($form_data['expirable']) && $form_data['expirable'] === 'on' ? true : false,
+                'comentable' => isset($form_data['comentable']) && $form_data['comentable'] === 'on' ? true : false,
+                'is_private' => isset($form_data['access']) && $form_data['access'] === 'private' ? true : false,
+            ]);
+
+        return $this->index();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            Post::destroy($id);
+            return $this->index();
+        } catch (Exception $e) {
+            echo '<h3>Cannot destroy post</h3>';
+        }
     }
 }
