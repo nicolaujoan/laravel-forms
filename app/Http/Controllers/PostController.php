@@ -17,7 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = DB::table('posts')
+            ->select('posts.*', 'users.name')
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            ->get();
         return view('list-posts', ["posts" => $posts]);
     }
 
@@ -39,26 +42,7 @@ class PostController extends Controller
     */
     public function store(StorePostRequest $request)
     {
-        $form_data = $request->all();  // get form data
-
-        // 1) create and save Post model
-        // $post = new Post;
-        // $post->title = $form_data['title'];
-        // $post->content = $form_data['content'];
-        // $post->extract = $form_data['extract'];
-        // $post->user_id = Auth::id();
-        // $post->expirable = $form_data['expirable'] === 'on' ? true : false;
-        // $post->comentable = $form_data['comentable'] === 'on' ? true : false;
-        // $post->is_private = $form_data['access'] === 'private' ? true : false;
-        // $is_saved = $post->save();
-
-        // if ($is_saved) {
-        //     echo '<h3>Post saved successfully!</h3>';
-        // } else {
-        //     echo '<h3>Cannot save post</h3>';
-        // }
-
-        // 2) need fillable properties for mass assignment
+        $form_data = $request->all();
         
         try {
             Post::create([
@@ -70,31 +54,10 @@ class PostController extends Controller
                 'comentable' => isset($form_data['comentable']) && $form_data['comentable'] === 'on' ? true : false,
                 'is_private' => isset($form_data['access']) && $form_data['access'] === 'private' ? true : false,
             ]);
-            echo '<h3>Post saved successfully!</h3>';
+            return $this->index();
         } catch (Exception $e) {
             echo '<h3>Cannot save post</h3>';
         }
- 
-        // 3) QueryBuilder
-        // $created_post = DB::table('posts')->insert([
-        //     'title' => $form_data['title'],
-        //     'content' => $form_data['content'],
-        //     'extract' => $form_data['extract'],
-        //     'user_id' => Auth::id(),
-        //     'expirable' => $form_data['expirable'] === 'on' ? true : false,
-        //     'comentable' => $form_data['comentable'] === 'on' ? true : false,
-        //     'is_private' => $form_data['access'] === 'private' ? true : false,
-        // ]);
-
-        // if ($created_post) {
-        //     echo '<h3>Post saved successfully!</h3>';
-        // } else {
-        //     echo '<h3>Cannot save post</h3>';
-        // }
-
-        // 4) Sentencia raw (Queda pendiente)
-        
-        return view('welcome');
     }
 
     /**

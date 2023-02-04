@@ -30,7 +30,7 @@
 </style>
 
 <div class="topnav">
-    <a href="../../dashboard">Dashboard</a>
-    <a href="./">List posts</a>
-    <a class="active" href="./create">Crate post</a>
+    <a href="{{ route('dashboard') }}">Dashboard</a>
+    <a href="{{ route('posts.index') }}">List posts</a>
+    <a class="active" href="{{ route('posts.create') }}">Crate post</a>
   </div>

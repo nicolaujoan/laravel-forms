@@ -9,10 +9,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        body {
-            padding-left: 40px;
-        }
-
         .regular-input {
             border: 1px solid black;
             width: 20%;
@@ -32,7 +28,7 @@
 <body>
     @include('components.navbar')
     <h1>{{ __('posts') }}</h1>
-    <form id="postform" method="post" action="{{ route('posts.create') }}">
+    <form id="postform" method="post" action="{{ route('posts.store') }}">
         @csrf
 
         <!-- TITLE -->
