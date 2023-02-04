@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -43,7 +44,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $form_data = $request->all();
-        
+
         try {
             Post::create([
                 'title' => $form_data['title'],
@@ -79,7 +80,13 @@ class PostController extends Controller
     public function edit($id)
     {
         // find object by id
-        $post = DB::table('posts')->where('id', $id)->first();
+        $post = Post::query()->where('id', '=', $id)->first();
+
+        if (! Gate::allows('update-post', $post)) {
+            echo "<script>alert('You are not the owner of the post.')</script>";
+            return $this->index();
+        }
+
         return view('edit-post', ["post" => $post]);
     }
 
@@ -108,11 +115,11 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+    * Remove the specified resource from storage.
+    *
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
-     */
+    */
     public function destroy($id)
     {
         try {

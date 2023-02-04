@@ -26,6 +26,7 @@ class StorePostRequest extends FormRequest
         return
             [
                 "title" => "required|min:4|max:20",
+                "extract" => "required",
                 "content" => "required"
             ];
     }
