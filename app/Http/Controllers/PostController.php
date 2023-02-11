@@ -82,7 +82,7 @@ class PostController extends Controller
         // find object by id
         $post = Post::query()->where('id', '=', $id)->first();
 
-        if (! Gate::allows('update-post', $post)) {
+        if (!Gate::allows('update-post', $post)) {
             echo "<script>alert('You are not the owner of the post.')</script>";
             return $this->index();
         }
@@ -123,6 +123,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         try {
+
+            $post = Post::query()->where('id', '=', $id)->first();
+            
+            if (!Gate::allows('delete-post', $post)) {
+                echo "<script>alert('You are not the owner of the post.')</script>";
+                return $this->index();
+            }
+
             Post::destroy($id);
             return $this->index();
         } catch (Exception $e) {

@@ -53,9 +53,9 @@
         <!-- CHECKS -->
         <fieldset class="regular-fieldset">
             <label for="expirable">{{ __('expirable') }}</label>
-            <input type="checkbox" id="expirable" name="expirable" @checked(old('expirable'))>
+            <input type="checkbox" id="expirable" name="expirable" @checked(old('expirable', $post->expirable))>
             <label for="comentable">{{ __('comentable') }}</label>
-            <input type="checkbox" id="comentable" name="comentable" @checked(old('comentable'))><br>
+            <input type="checkbox" id="comentable" name="comentable" @checked(old('comentable', $post->comentable))><br>
         </fieldset>
 
         <br>
@@ -63,9 +63,9 @@
         <!-- RADIOS -->
         <fieldset class="regular-fieldset">
             <label for="private_access">{{ __('messages.private_access') }}</label>
-            <input type="radio" id="private_access" name="access" value="private" @checked(old('private_access'))>
+            <input type="radio" id="private_access" name="access" value="private" @checked(old('private_access', $post->is_private))>
             <label for="public_access">{{ __('messages.public_access') }}</label>
-            <input type="radio" id="public_access" name="access" value="public" @checked(old('public_access'))>
+            <input type="radio" id="public_access" name="access" value="public" @checked(old('public_access', !$post->is_private))>
         </fieldset>
         <br>
 
